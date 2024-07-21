@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты парсинга</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #0073e6;
+        }
+        h3 {
+            color: #005bb5;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #e6f2ff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .review {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .review:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .review p {
+            margin: 5px 0;
+        }
+        .review strong {
+            color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <h2>Результаты парсинга данных:</h2>
+    <div class="container">
+        {% if result.ratings %}
+            <h3>Средний рейтинг:</h3>
+            <ul>
+                <li>{{ result.ratings | join('') }}</li>
+            </ul>
+        {% else %}
+            <p>Информация о рейтинге отсутствует.</p>
+        {% endif %}
+
+        {% if result.count_ratings %}
+            <p>Количество оценок: {{ result.count_ratings }}</p>
+        {% endif %}
+
+        {% for review in result.reviews %}
+            <div class="review">
+                <p><strong>Имя: </strong>{{ review.name }}</p>
+                <p><strong>Дата: </strong>{{ review.date }}</p>
+                <p><strong>Отзыв: </strong>{{ review.review }}</p>
+                <p><strong>Оценка: </strong>{{ review.star }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
